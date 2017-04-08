@@ -27,7 +27,7 @@ class BookPulseRestApi:
         return resp
 
     def delete_obj(self, obj):
-        resp = requests.delete(self.url + obj.set_id())
+        resp = requests.delete(self.url + str(obj.get_dict_with_id()["id"]))
         return resp
 
 
