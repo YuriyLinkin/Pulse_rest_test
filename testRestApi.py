@@ -1,21 +1,26 @@
-import unittest
+import pytest
 from pulse_api_client import BookPulseRestApi
 
 from modBook import Book
 
+@pytest.fixture()
+def app():
+    fixture = BookPulseRestApi(resourse="books")
+    return fixture
 
-class BookCreationTests(unittest.TestCase):
-    def setUp(self):
-        self.client = BookPulseRestApi(resourse="books")
+def test_create_full_book(app):
+    book = Book(title="WhoIsPulse?", author="Yuriy")
+    resp = app.create_book(book)
 
-    def test_create_full_book(self):
-        book = Book(title="New Book", author="Super Author")
-        resp = self.client.create_book(book)
-        self.assertEqual(resp.status_code, 201)
-        self.assertDictEqual(resp.json(), book.get_dict_with_id())
-        #self.client.get_book(book)
-        self.assertIn(resp, title , 'books')
+    #Verification
 
-q = BookCreationTests()
+    assert resp.status_code == 201
+    assert resp.json() == book.get_dict_with_id ()
+    #self.assertEqual(resp.status_code, 201)
+    #self.assertDictEqual(resp.json(), book.get_dict_with_id())
+    #self.client.get_book(book)
 
-print(q)
+
+# q = BookCreationTests()
+#
+# print(q)
