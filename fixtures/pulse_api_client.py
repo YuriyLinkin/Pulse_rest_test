@@ -10,7 +10,9 @@ class BookPulseRestApi:
 
     def create_book(self, obj):
         resp = requests.post(self.url, data={'title': obj.title, 'author': obj.author})
-        obj.set_id(resp.json()['id'])
+
+        if resp.status_code == 201:
+            obj.set_id(resp.json()['id'])
         return resp
 
     def get_objects(self):
@@ -37,7 +39,7 @@ class BookPulseRestApi:
 
 if __name__ == "__main__":
     m = BookPulseRestApi('books')
-    from modBook import Book
+    from models.modBook import Book
     book_data = m.get_objects()[2]
     book = Book(**book_data)
     print(book.id)

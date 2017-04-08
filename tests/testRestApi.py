@@ -1,16 +1,15 @@
-import pytest
-from pulse_api_client import BookPulseRestApi
 
-from modBook import Book
 
-@pytest.fixture()
-def app():
-    fixture = BookPulseRestApi(resourse="books")
-    return fixture
+from models.modBook import Book
+
 
 def test_create_full_book(app):
     book = Book(title="WhoIsPulse?", author="Yuriy")
     resp = app.create_book(book)
+
+# def test_create_book_NoAuthor(app):
+#     book = Book(title="WhoIsPulse?")
+#     resp = app.create_book(book)
 
     #Verification
 
