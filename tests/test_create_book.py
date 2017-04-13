@@ -5,8 +5,8 @@ test_data= [Book(title="WhoIsPulse?", author="Yuriy"),
             Book(title="0", author="0")]
 
 @pytest.mark.parametrize('book', test_data, ids=[repr(v) for v in test_data])
-def test_create_full_book(app, book):
-    resp = app.create_book(book)
+def test_create_full_book(app_book, book):
+    resp = app_book.create_book(book)
 
 
 
